@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io(window.location.origin);  // This will use the current domain and port (EC2 public IP/domain)
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 myVideo.muted = true;
@@ -6,10 +6,13 @@ myVideo.muted = true;
 const peers = {};
 
 var peer = new Peer(undefined, {
-  path: "/peerjs",
-  host: "/",
-  port: "3030",
+  path: "/peerjs",  // Keep path the same, assuming PeerJS is hosted on the same server
+  host: window.location.hostname, // Dynamically use the hostname (EC2 public IP or domain)
+  port: 80,  // Use port 80 in production (or 443 for HTTPS)
 });
+
+
+
 
 let myVideoStream;
 navigator.mediaDevices
