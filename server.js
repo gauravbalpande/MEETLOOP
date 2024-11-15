@@ -29,6 +29,12 @@ connectMongoDB(process.env.MONGO_URL).then(() => {
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
+
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${port}`);
+});
+
+
 // middlewares
 app.use(express.static(path.resolve("public")));
 app.use("/user", express.static(path.resolve("public")));
